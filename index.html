@@ -3,14 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BASSED SENSI</title>
+<title>Painel Auxílio</title>
 
 <style>
 body{
   margin:0;
-  background:radial-gradient(circle at top, #1a0000, #000);
-  font-family: 'Segoe UI', sans-serif;
+  background:#000;
   color:#fff;
+  font-family: Arial, Helvetica, sans-serif;
   display:flex;
   justify-content:center;
   align-items:center;
@@ -19,26 +19,18 @@ body{
 
 .panel{
   width:340px;
-  background:#0e0e0e;
+  background:#0d0d0d;
   border-radius:20px;
   padding:20px;
-  box-shadow:0 0 30px #ff000055;
   border:1px solid #ff0000;
-}
-
-.status{
-  text-align:center;
-  color:#00ff6a;
-  font-size:13px;
-  margin-bottom:6px;
+  box-shadow:0 0 25px rgba(255,0,0,.4);
 }
 
 .title{
   text-align:center;
-  font-size:26px;
-  font-weight:900;
-  color:#ff1a1a;
-  text-shadow:0 0 10px red;
+  color:#ff0000;
+  font-weight:bold;
+  font-size:22px;
   margin-bottom:15px;
 }
 
@@ -50,11 +42,12 @@ body{
 
 .tab{
   flex:1;
+  text-align:center;
   padding:8px;
   border-radius:20px;
-  text-align:center;
   background:#222;
   cursor:pointer;
+  font-size:14px;
 }
 
 .tab.active{
@@ -101,6 +94,7 @@ body{
 
 .slider{
   margin:15px 0;
+  font-size:14px;
 }
 
 .slider input{
@@ -108,20 +102,21 @@ body{
 }
 
 .button{
-  margin-top:12px;
+  margin-top:15px;
   padding:12px;
-  text-align:center;
   border-radius:25px;
+  text-align:center;
   background:linear-gradient(180deg,#ff2a2a,#a80000);
   font-weight:bold;
   cursor:pointer;
 }
 
 .message{
-  text-align:center;
   margin-top:10px;
+  text-align:center;
   color:#00ff6a;
   display:none;
+  font-size:14px;
 }
 </style>
 </head>
@@ -129,7 +124,7 @@ body{
 <body>
 
 <div class="panel">
-  <div class="status">● JOGADOR ONLINE</div>
+
   <div class="title">PAINEL AUXÍLIO</div>
 
   <div class="tabs">
@@ -137,31 +132,63 @@ body{
     <div class="tab">OTIMIZAÇÃO</div>
   </div>
 
-  <div class="option">Aimbot light <div class="toggle"></div></div>
-  <div class="option">Headtrick <div class="toggle"></div></div>
-  <div class="option">Aumentar precisão <div class="toggle"></div></div>
-  <div class="option">Ativar auxílio 100% <div class="toggle"></div></div>
+  <!-- AUXÍLIO -->
+  <div id="auxilio">
+    <div class="option">Aimbot Light <div class="toggle"></div></div>
+    <div class="option">Headtrick <div class="toggle"></div></div>
+    <div class="option">Precisão Extra <div class="toggle"></div></div>
+    <div class="option">Auxílio Total <div class="toggle"></div></div>
 
-  <div class="slider">
-    FOV: <span id="fov">81%</span>
-    <input type="range" min="0" max="100" value="81" oninput="fov.innerText=this.value+'%'">
+    <div class="slider">
+      FOV: <span id="fov">80%</span>
+      <input type="range" min="0" max="100" value="80"
+        oninput="fov.innerText=this.value+'%'">
+    </div>
   </div>
 
-  <div class="button" onclick="ativar()">ABRIR FREE FIRE</div>
-  <div class="button">ABRIR FREE FIRE MAX</div>
+  <!-- OTIMIZAÇÃO -->
+  <div id="otimizacao" style="display:none;">
+    <div class="option">Diminuir gráfico <div class="toggle"></div></div>
+    <div class="option">120 FPS <div class="toggle"></div></div>
+    <div class="option">Gráfico suave com skin <div class="toggle"></div></div>
+    <div class="option">Otimização <div class="toggle"></div></div>
+  </div>
 
+  <div class="button" onclick="ativar()">ATIVAR</div>
   <div class="message" id="msg">Ativado com sucesso 😈</div>
+
 </div>
 
 <script>
-document.querySelectorAll('.toggle').forEach(t=>{
-  t.onclick=()=>t.classList.toggle('on')
-})
+/* ABAS */
+const tabs = document.querySelectorAll('.tab');
+const aux = document.getElementById('auxilio');
+const opt = document.getElementById('otimizacao');
 
+tabs[0].onclick = () => {
+  tabs[0].classList.add('active');
+  tabs[1].classList.remove('active');
+  aux.style.display = 'block';
+  opt.style.display = 'none';
+};
+
+tabs[1].onclick = () => {
+  tabs[1].classList.add('active');
+  tabs[0].classList.remove('active');
+  aux.style.display = 'none';
+  opt.style.display = 'block';
+};
+
+/* TOGGLES */
+document.querySelectorAll('.toggle').forEach(t=>{
+  t.onclick = () => t.classList.toggle('on');
+});
+
+/* BOTÃO */
 function ativar(){
-  const m=document.getElementById('msg')
-  m.style.display='block'
-  setTimeout(()=>m.style.display='none',3000)
+  const m = document.getElementById('msg');
+  m.style.display = 'block';
+  setTimeout(()=> m.style.display='none',3000);
 }
 </script>
 
