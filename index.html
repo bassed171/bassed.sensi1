@@ -111,9 +111,16 @@
   </div>
 
   <script>
-    function showMsg() {
-      const m = document.getElementById("msg");
-      m.style.display = "block";
+  function showMsg() {
+    const m = document.getElementById("msg");
+    m.style.display = "block";
+
+    // some sozinho depois de 2 segundos
+    setTimeout(() => {
+      m.style.display = "none";
+    }, 2000);
+  }
+  </script>
     }
   </script>
 
