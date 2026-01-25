@@ -6,58 +6,53 @@
   <title>BASSED SENSI</title>
 
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: Arial, Helvetica, sans-serif;
-    }
-
     body {
-      background: #080000;
-      color: #ffe5e5;
+      margin: 0;
+      height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
+      background: #080000;
+      font-family: Arial, Helvetica, sans-serif;
     }
 
-    .card {
+    .panel {
+      width: 90%;
+      max-width: 360px;
       background: #110000;
       border: 1px solid #3a0000;
       border-radius: 12px;
-      width: 90%;
-      max-width: 360px;
       padding: 20px;
-      box-shadow: 0 0 20px rgba(255, 0, 0, 0.25);
+      box-shadow: 0 0 20px rgba(255,0,0,0.25);
+      color: #fff;
     }
 
     h1 {
       text-align: center;
       color: #ff2a2a;
-      margin-bottom: 5px;
       letter-spacing: 2px;
+      margin-bottom: 5px;
     }
 
-    .subtitle {
+    .sub {
       text-align: center;
       font-size: 13px;
       color: #ff9a9a;
       margin-bottom: 20px;
     }
 
-    .option {
-      background: #0f0000;
-      border: 1px solid #3a0000;
-      border-radius: 8px;
-      padding: 14px;
-      margin-bottom: 12px;
+    .opt {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      background: #0f0000;
+      border: 1px solid #3a0000;
+      border-radius: 8px;
+      padding: 12px;
+      margin-bottom: 12px;
     }
 
-    .option span {
+    .opt span {
       font-size: 14px;
     }
 
@@ -66,9 +61,8 @@
       border: none;
       border-radius: 6px;
       padding: 8px 14px;
-      font-size: 13px;
-      cursor: pointer;
       font-weight: bold;
+      cursor: pointer;
       color: #000;
     }
 
@@ -76,40 +70,52 @@
       transform: scale(0.95);
     }
 
-    .footer {
-      text-align: center;
-      font-size: 11px;
-      color: #ff7a7a;
+    /* MENSAGEM DENTRO DO PAINEL */
+    .msg {
+      display: none;
       margin-top: 15px;
-      opacity: 0.7;
+      padding: 10px;
+      background: #000;
+      color: #ff2a2a;
+      border: 1px solid #ff2a2a;
+      border-radius: 6px;
+      text-align: center;
+      font-weight: bold;
+      font-size: 14px;
     }
   </style>
 </head>
 <body>
 
-  <div class="card">
+  <div class="panel">
     <h1>BASSED</h1>
-    <div class="subtitle">auxílio de sensi</div>
+    <div class="sub">auxílio de sensi</div>
 
-    <div class="option">
+    <div class="opt">
       <span>Auxílio de Mira</span>
-      <button onclick="alert('Auxílio de Mira ativado')">ATIVAR</button>
+      <button onclick="showMsg()">ATIVAR</button>
     </div>
 
-    <div class="option">
+    <div class="opt">
       <span>Precisão</span>
-      <button onclick="alert('Precisão ativada')">ATIVAR</button>
+      <button onclick="showMsg()">ATIVAR</button>
     </div>
 
-    <div class="option">
+    <div class="opt">
       <span>Estabilidade</span>
-      <button onclick="alert('Estabilidade ativada')">ATIVAR</button>
+      <button onclick="showMsg()">ATIVAR</button>
     </div>
 
-    <div class="footer">
-      © BASSED SENSI
-    </div>
+    <!-- MENSAGEM -->
+    <div id="msg" class="msg">Ativado com sucesso 😈</div>
   </div>
+
+  <script>
+    function showMsg() {
+      const m = document.getElementById("msg");
+      m.style.display = "block";
+    }
+  </script>
 
 </body>
 </html>
