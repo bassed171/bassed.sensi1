@@ -112,6 +112,19 @@ input[type=range]{
   font-weight:800;
   font-size:16px;
 }
+
+#toast{
+  position:fixed;
+  bottom:30px;
+  left:50%;
+  transform:translateX(-50%);
+  background:#ff0000;
+  color:#fff;
+  padding:14px 22px;
+  border-radius:20px;
+  font-weight:800;
+  display:none;
+}
 </style>
 </head>
 
@@ -127,35 +140,53 @@ input[type=range]{
 
   <div class="item">
     <span>Auxílio de Mira</span>
-    <div class="switch" onclick="tg(this)"></div>
+    <div class="switch" data-name="aux_mira" onclick="toggle(this)"></div>
   </div>
 
   <div class="item">
     <span>Sensi Otimizada</span>
-    <div class="switch" onclick="tg(this)"></div>
+    <div class="switch" data-name="sensi_opt" onclick="toggle(this)"></div>
   </div>
 
   <div class="item">
     <span>Sensi 2X</span>
-    <div class="switch" onclick="tg(this)"></div>
+    <div class="switch" data-name="sensi_2x" onclick="toggle(this)"></div>
   </div>
 
   <div class="item">
     <span>Auxílio Avançado</span>
-    <div class="switch" onclick="tg(this)"></div>
+    <div class="switch" data-name="aux_adv" onclick="toggle(this)"></div>
   </div>
 
   <div class="range">
-    <label>Nível de Precisão</label>
-    <input type="range" min="0" max="100" value="80">
+    <label>Nível de Precisão: <span id="lvl">80</span>%</label>
+    <input type="range" min="0" max="100" value="80" oninput="lvl.innerText=this.value">
   </div>
 
-  <button class="btn">ATIVAR</button>
+  <button class="btn" onclick="ativar()">ATIVAR</button>
 </div>
 
+<div id="toast">Auxílios ativados com sucesso 🔥</div>
+
 <script>
-function tg(el){
+const estado = {
+  aux_mira:false,
+  sensi_opt:false,
+  sensi_2x:false,
+  aux_adv:false
+}
+
+function toggle(el){
   el.classList.toggle("on")
+  const key = el.dataset.name
+  estado[key] = el.classList.contains("on")
+}
+
+function ativar(){
+  console.log("STATUS:", estado)
+
+  toast.style.display="block"
+  setTimeout(()=>toast.style.display="none",2200)
 }
 </script>
 
