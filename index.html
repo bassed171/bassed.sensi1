@@ -6,7 +6,7 @@
 <title>Painel Auxílio</title>
 
 <style>
-*{font-family:-apple-system, BlinkMacSystemFont, sans-serif}
+*{font-family:-apple-system}
 body{
   margin:0;
   min-height:100vh;
@@ -22,8 +22,8 @@ body{
   background:#0b0b0b;
   border-radius:22px;
   padding:22px;
-  box-shadow:0 0 40px rgba(255,0,0,.35);
   border:2px solid #ff0000;
+  box-shadow:0 0 40px rgba(255,0,0,.4);
 }
 
 .title{
@@ -37,9 +37,8 @@ body{
 .tabs{
   display:flex;
   gap:10px;
-  margin-bottom:18px;
+  margin-bottom:16px;
 }
-
 .tab{
   flex:1;
   padding:10px;
@@ -49,11 +48,13 @@ body{
   background:#1a1a1a;
   color:#aaa;
 }
-
 .tab.active{
   background:linear-gradient(180deg,#ff3b3b,#b30000);
   color:#fff;
 }
+
+.section{display:none}
+.section.active{display:block}
 
 .item{
   display:flex;
@@ -68,7 +69,6 @@ body{
   background:#333;
   border-radius:20px;
   position:relative;
-  cursor:pointer;
 }
 .switch::after{
   content:"";
@@ -89,20 +89,11 @@ body{
   background:#fff;
 }
 
-.range{
-  margin-top:10px;
-}
-.range label{
-  font-size:14px;
-  opacity:.85;
-}
-input[type=range]{
-  width:100%;
-  margin-top:6px;
-}
+.range label{font-size:14px}
+input[type=range]{width:100%}
 
 .btn{
-  margin-top:20px;
+  margin-top:18px;
   width:100%;
   padding:16px;
   border:none;
@@ -110,7 +101,6 @@ input[type=range]{
   background:linear-gradient(180deg,#ff3b3b,#b30000);
   color:#fff;
   font-weight:800;
-  font-size:16px;
 }
 
 #toast{
@@ -119,7 +109,6 @@ input[type=range]{
   left:50%;
   transform:translateX(-50%);
   background:#ff0000;
-  color:#fff;
   padding:14px 22px;
   border-radius:20px;
   font-weight:800;
@@ -134,57 +123,80 @@ input[type=range]{
   <div class="title">PAINEL AUXÍLIO</div>
 
   <div class="tabs">
-    <div class="tab active">AUXÍLIO</div>
-    <div class="tab">OTIMIZAÇÃO</div>
+    <div class="tab active" onclick="openTab('aux',this)">AUXÍLIO</div>
+    <div class="tab" onclick="openTab('opt',this)">OTIMIZAÇÃO</div>
   </div>
 
-  <div class="item">
-    <span>Auxílio de Mira</span>
-    <div class="switch" data-name="aux_mira" onclick="toggle(this)"></div>
+  <!-- AUXÍLIO -->
+  <div id="aux" class="section active">
+    <div class="item">
+      <span>Auxílio de Mira</span>
+      <div class="switch" data-key="aux_mira" onclick="tg(this)"></div>
+    </div>
+    <div class="item">
+      <span>Sensi Otimizada</span>
+      <div class="switch" data-key="sensi_opt" onclick="tg(this)"></div>
+    </div>
+    <div class="item">
+      <span>Sensi 2X</span>
+      <div class="switch" data-key="sensi_2x" onclick="tg(this)"></div>
+    </div>
+
+    <div class="range">
+      <label>Precisão: <span id="lvl">80</span>%</label>
+      <input type="range" min="0" max="100" value="80"
+        oninput="lvl.innerText=this.value">
+    </div>
   </div>
 
-  <div class="item">
-    <span>Sensi Otimizada</span>
-    <div class="switch" data-name="sensi_opt" onclick="toggle(this)"></div>
-  </div>
-
-  <div class="item">
-    <span>Sensi 2X</span>
-    <div class="switch" data-name="sensi_2x" onclick="toggle(this)"></div>
-  </div>
-
-  <div class="item">
-    <span>Auxílio Avançado</span>
-    <div class="switch" data-name="aux_adv" onclick="toggle(this)"></div>
-  </div>
-
-  <div class="range">
-    <label>Nível de Precisão: <span id="lvl">80</span>%</label>
-    <input type="range" min="0" max="100" value="80" oninput="lvl.innerText=this.value">
+  <!-- OTIMIZAÇÃO -->
+  <div id="opt" class="section">
+    <div class="item">
+      <span>FPS Estável</span>
+      <div class="switch" data-key="fps" onclick="tg(this)"></div>
+    </div>
+    <div class="item">
+      <span>Redução de Lag</span>
+      <div class="switch" data-key="lag" onclick="tg(this)"></div>
+    </div>
+    <div class="item">
+      <span>Memória Otimizada</span>
+      <div class="switch" data-key="ram" onclick="tg(this)"></div>
+    </div>
   </div>
 
   <button class="btn" onclick="ativar()">ATIVAR</button>
 </div>
 
-<div id="toast">Auxílios ativados com sucesso 🔥</div>
+<div id="toast"></div>
 
 <script>
-const estado = {
-  aux_mira:false,
-  sensi_opt:false,
-  sensi_2x:false,
-  aux_adv:false
+const state = {}
+
+function tg(el){
+  el.classList.toggle("on")
+  state[el.dataset.key] = el.classList.contains("on")
 }
 
-function toggle(el){
-  el.classList.toggle("on")
-  const key = el.dataset.name
-  estado[key] = el.classList.contains("on")
+function openTab(id,tab){
+  document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"))
+  tab.classList.add("active")
+  document.querySelectorAll(".section").forEach(s=>s.classList.remove("active"))
+  document.getElementById(id).classList.add("active")
 }
 
 function ativar(){
-  console.log("STATUS:", estado)
+  const ativos = Object.values(state).some(v=>v)
+  if(!ativos){
+    show("Nenhuma função ativada ⚠️")
+    return
+  }
+  show("Ativando funções...")
+  setTimeout(()=>show("Ativado com sucesso 😈🔥"),1800)
+}
 
+function show(msg){
+  toast.innerText = msg
   toast.style.display="block"
   setTimeout(()=>toast.style.display="none",2200)
 }
