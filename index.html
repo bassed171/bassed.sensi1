@@ -1,116 +1,182 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Painel Auxílio</title>
+<title>@BANNED</title>
 
 <style>
-*{font-family:-apple-system}
+*{
+  font-family:-apple-system,BlinkMacSystemFont;
+  box-sizing:border-box;
+}
+
 body{
   margin:0;
   min-height:100vh;
-  background:#050505;
+  background:radial-gradient(circle at top,#1a0033,#05000a);
   display:flex;
   justify-content:center;
   align-items:center;
   color:#fff;
 }
 
+/* PAINEL */
 .panel{
   width:340px;
-  background:#0b0b0b;
-  border-radius:22px;
-  padding:22px;
-  border:2px solid #ff0000;
-  box-shadow:0 0 40px rgba(255,0,0,.4);
+  background:linear-gradient(180deg,#15182a,#0d1020);
+  border-radius:26px;
+  padding:18px;
+  box-shadow:0 0 50px rgba(90,60,255,.5);
 }
 
 .title{
   text-align:center;
-  font-weight:800;
   font-size:22px;
-  color:#ff0000;
+  font-weight:800;
   margin-bottom:14px;
 }
 
+/* TABS */
 .tabs{
   display:flex;
-  gap:10px;
+  background:#0b0e1a;
+  border-radius:20px;
+  padding:4px;
   margin-bottom:16px;
 }
+
 .tab{
   flex:1;
-  padding:10px;
-  border-radius:20px;
   text-align:center;
-  font-weight:700;
-  background:#1a1a1a;
-  color:#aaa;
+  padding:8px 0;
+  border-radius:16px;
+  font-size:13px;
+  opacity:.6;
+  cursor:pointer;
 }
+
 .tab.active{
-  background:linear-gradient(180deg,#ff3b3b,#b30000);
-  color:#fff;
+  background:linear-gradient(90deg,#4f7cff,#2d4bff);
+  opacity:1;
+  font-weight:700;
 }
 
-.section{display:none}
-.section.active{display:block}
+/* CONTEÚDO */
+.content{display:none}
+.content.active{display:block}
 
+/* ITENS */
 .item{
+  background:#121530;
+  border-radius:18px;
+  padding:12px;
+  margin-bottom:10px;
   display:flex;
   justify-content:space-between;
   align-items:center;
-  margin:14px 0;
 }
 
+.item span{
+  font-size:14px;
+}
+
+/* SWITCH */
 .switch{
   width:46px;
   height:24px;
-  background:#333;
+  background:#0b0e1a;
   border-radius:20px;
   position:relative;
+  cursor:pointer;
 }
+
 .switch::after{
   content:"";
-  width:18px;
-  height:18px;
-  background:#aaa;
+  width:20px;
+  height:20px;
+  background:#4f7cff;
   border-radius:50%;
   position:absolute;
-  top:3px;
-  left:3px;
-  transition:.25s;
+  top:2px;
+  left:2px;
+  transition:.3s;
 }
+
 .switch.on{
-  background:#ff0000;
+  background:#4f7cff;
 }
+
 .switch.on::after{
-  left:25px;
-  background:#fff;
+  left:24px;
+  background:#0b0e1a;
 }
 
-.range label{font-size:14px}
-input[type=range]{width:100%}
+/* SLIDER */
+.slider-box{
+  background:#121530;
+  border-radius:18px;
+  padding:12px;
+  margin-bottom:14px;
+}
 
-.btn{
-  margin-top:18px;
+.slider-box label{
+  font-size:13px;
+  opacity:.8;
+}
+
+input[type=range]{
   width:100%;
-  padding:16px;
-  border:none;
-  border-radius:20px;
-  background:linear-gradient(180deg,#ff3b3b,#b30000);
-  color:#fff;
-  font-weight:800;
 }
 
-#toast{
+/* BOTÃO */
+.btn{
+  width:100%;
+  padding:14px;
+  border:none;
+  border-radius:22px;
+  background:linear-gradient(90deg,#4f7cff,#2d4bff);
+  color:#fff;
+  font-size:16px;
+  font-weight:800;
+  cursor:pointer;
+}
+
+/* LOADING */
+.loading{
+  text-align:center;
+  margin-top:14px;
+  display:none;
+}
+
+.bar{
+  width:100%;
+  height:6px;
+  background:#0b0e1a;
+  border-radius:6px;
+  overflow:hidden;
+  margin-top:8px;
+}
+
+.fill{
+  height:100%;
+  width:0%;
+  background:#4f7cff;
+  animation:load 2.5s forwards;
+}
+
+@keyframes load{
+  to{width:100%}
+}
+
+/* TOAST */
+.toast{
   position:fixed;
   bottom:30px;
-  left:50%;
-  transform:translateX(-50%);
-  background:#ff0000;
-  padding:14px 22px;
-  border-radius:20px;
+  background:#4f7cff;
+  color:#0b0e1a;
+  padding:12px 22px;
+  border-radius:18px;
   font-weight:800;
   display:none;
 }
@@ -120,85 +186,103 @@ input[type=range]{width:100%}
 <body>
 
 <div class="panel">
-  <div class="title">PAINEL AUXÍLIO</div>
+  <div class="title">@BANNED</div>
 
   <div class="tabs">
-    <div class="tab active" onclick="openTab('aux',this)">AUXÍLIO</div>
-    <div class="tab" onclick="openTab('opt',this)">OTIMIZAÇÃO</div>
+    <div class="tab active" onclick="openTab('aux')">AUXÍLIO</div>
+    <div class="tab" onclick="openTab('opt')">OTIMIZAÇÃO</div>
+    <div class="tab" onclick="openTab('misc')">MISC</div>
   </div>
 
-  <!-- AUXÍLIO -->
-  <div id="aux" class="section active">
+  <!-- AUXILIO -->
+  <div id="aux" class="content active">
     <div class="item">
-      <span>Auxílio de Mira</span>
-      <div class="switch" data-key="aux_mira" onclick="tg(this)"></div>
-    </div>
-    <div class="item">
-      <span>Sensi Otimizada</span>
-      <div class="switch" data-key="sensi_opt" onclick="tg(this)"></div>
-    </div>
-    <div class="item">
-      <span>Sensi 2X</span>
-      <div class="switch" data-key="sensi_2x" onclick="tg(this)"></div>
+      <span>Auxílio de Mira (Leve)</span>
+      <div class="switch"></div>
     </div>
 
-    <div class="range">
-      <label>Precisão: <span id="lvl">80</span>%</label>
+    <div class="item">
+      <span>Precisão Extra</span>
+      <div class="switch"></div>
+    </div>
+
+    <div class="item">
+      <span>Estabilidade de Sensi</span>
+      <div class="switch"></div>
+    </div>
+
+    <div class="slider-box">
+      <label>Precisão: <b id="prec">80%</b></label>
       <input type="range" min="0" max="100" value="80"
-        oninput="lvl.innerText=this.value">
+      oninput="prec.innerText=this.value+'%'">
+    </div>
+
+    <button class="btn" onclick="ativar()">ATIVAR</button>
+
+    <div class="loading" id="load">
+      Aplicando ajustes…
+      <div class="bar"><div class="fill"></div></div>
     </div>
   </div>
 
   <!-- OTIMIZAÇÃO -->
-  <div id="opt" class="section">
+  <div id="opt" class="content">
     <div class="item">
-      <span>FPS Estável</span>
-      <div class="switch" data-key="fps" onclick="tg(this)"></div>
+      <span>Otimização de FPS</span>
+      <div class="switch"></div>
     </div>
+
     <div class="item">
       <span>Redução de Lag</span>
-      <div class="switch" data-key="lag" onclick="tg(this)"></div>
+      <div class="switch"></div>
     </div>
+
     <div class="item">
-      <span>Memória Otimizada</span>
-      <div class="switch" data-key="ram" onclick="tg(this)"></div>
+      <span>Estabilidade Geral</span>
+      <div class="switch"></div>
     </div>
   </div>
 
-  <button class="btn" onclick="ativar()">ATIVAR</button>
+  <!-- MISC -->
+  <div id="misc" class="content">
+    <div class="item">
+      <span>Interface Suave</span>
+      <div class="switch"></div>
+    </div>
+
+    <div class="item">
+      <span>Resposta Rápida</span>
+      <div class="switch"></div>
+    </div>
+
+    <div class="item">
+      <span>Modo Estável</span>
+      <div class="switch"></div>
+    </div>
+  </div>
 </div>
 
-<div id="toast"></div>
+<div class="toast" id="toast">Funções ativadas com sucesso 😈</div>
 
 <script>
-const state = {}
+document.querySelectorAll(".switch").forEach(sw=>{
+  sw.onclick=()=>sw.classList.toggle("on")
+})
 
-function tg(el){
-  el.classList.toggle("on")
-  state[el.dataset.key] = el.classList.contains("on")
-}
-
-function openTab(id,tab){
+function openTab(id){
   document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"))
-  tab.classList.add("active")
-  document.querySelectorAll(".section").forEach(s=>s.classList.remove("active"))
+  document.querySelectorAll(".content").forEach(c=>c.classList.remove("active"))
+  event.target.classList.add("active")
   document.getElementById(id).classList.add("active")
 }
 
 function ativar(){
-  const ativos = Object.values(state).some(v=>v)
-  if(!ativos){
-    show("Nenhuma função ativada ⚠️")
-    return
-  }
-  show("Ativando funções...")
-  setTimeout(()=>show("Ativado com sucesso 😈🔥"),1800)
-}
-
-function show(msg){
-  toast.innerText = msg
-  toast.style.display="block"
-  setTimeout(()=>toast.style.display="none",2200)
+  load.style.display="block"
+  setTimeout(()=>{
+    load.style.display="none"
+    toast.style.display="block"
+    setTimeout(()=>toast.style.display="none",2200)
+  },2600)
 }
 </script>
 
