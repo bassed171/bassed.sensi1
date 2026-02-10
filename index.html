@@ -1,290 +1,208 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>@BANNED</title>
+<title>BASSED SENSI</title>
 
 <style>
-*{
-  font-family:-apple-system,BlinkMacSystemFont;
-  box-sizing:border-box;
-}
-
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif}
 body{
-  margin:0;
   min-height:100vh;
-  background:radial-gradient(circle at top,#1a0033,#05000a);
+  background:#000;
   display:flex;
-  justify-content:center;
   align-items:center;
+  justify-content:center;
   color:#fff;
 }
 
-/* PAINEL */
-.panel{
+/* CARD */
+.card{
   width:340px;
-  background:linear-gradient(180deg,#15182a,#0d1020);
-  border-radius:26px;
-  padding:18px;
-  box-shadow:0 0 50px rgba(90,60,255,.5);
+  padding:18px 16px 22px;
+  border-radius:22px;
+  background:#050505;
+  box-shadow:
+    0 0 0 2px #ff0000,
+    0 0 35px rgba(255,0,0,.6);
 }
 
-.title{
-  text-align:center;
-  font-size:22px;
-  font-weight:800;
-  margin-bottom:14px;
-}
-
-/* TABS */
-.tabs{
-  display:flex;
-  background:#0b0e1a;
-  border-radius:20px;
-  padding:4px;
-  margin-bottom:16px;
-}
-
-.tab{
-  flex:1;
-  text-align:center;
-  padding:8px 0;
-  border-radius:16px;
-  font-size:13px;
-  opacity:.6;
-  cursor:pointer;
-}
-
-.tab.active{
-  background:linear-gradient(90deg,#4f7cff,#2d4bff);
-  opacity:1;
-  font-weight:700;
-}
-
-/* CONTEÚDO */
-.content{display:none}
-.content.active{display:block}
-
-/* ITENS */
-.item{
-  background:#121530;
-  border-radius:18px;
-  padding:12px;
+/* HEADER */
+.header{
   margin-bottom:10px;
+}
+.header h1{
+  font-size:26px;
+  font-weight:900;
+  color:#ff0000;
+  line-height:1;
+}
+.header span{
+  font-size:13px;
+  color:#2bff00;
+}
+
+/* LISTA */
+.list{margin-top:10px}
+.row{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:12px 6px;
+  border-bottom:1px solid rgba(255,0,0,.15);
+}
+.row:last-child{border-bottom:none}
+.label{font-size:15px}
+
+/* SWITCH */
+.switch{position:relative;width:52px;height:26px}
+.switch input{display:none}
+.slider{
+  position:absolute;inset:0;
+  background:#220000;
+  border-radius:999px;
+  box-shadow:inset 0 0 8px rgba(255,0,0,.6);
+  transition:.25s;
+}
+.slider:before{
+  content:"";
+  position:absolute;top:3px;left:3px;
+  width:20px;height:20px;border-radius:50%;
+  background:#fff;
+  transition:.25s;
+}
+.switch input:checked + .slider{
+  background:#ff0000;
+  box-shadow:0 0 12px rgba(255,0,0,.9);
+}
+.switch input:checked + .slider:before{
+  transform:translateX(26px);
+}
+
+/* FOV */
+.fov{margin-top:14px}
+.fov .top{
   display:flex;
   justify-content:space-between;
   align-items:center;
+  margin-bottom:6px;
 }
-
-.item span{
-  font-size:14px;
+.fov .top span{
+  color:#ff0000;
+  font-weight:800;
 }
-
-/* SWITCH */
-.switch{
-  width:46px;
-  height:24px;
-  background:#0b0e1a;
-  border-radius:20px;
-  position:relative;
-  cursor:pointer;
-}
-
-.switch::after{
-  content:"";
-  width:20px;
-  height:20px;
-  background:#4f7cff;
-  border-radius:50%;
-  position:absolute;
-  top:2px;
-  left:2px;
-  transition:.3s;
-}
-
-.switch.on{
-  background:#4f7cff;
-}
-
-.switch.on::after{
-  left:24px;
-  background:#0b0e1a;
-}
-
-/* SLIDER */
-.slider-box{
-  background:#121530;
-  border-radius:18px;
-  padding:12px;
-  margin-bottom:14px;
-}
-
-.slider-box label{
-  font-size:13px;
-  opacity:.8;
-}
-
 input[type=range]{
-  width:100%;
+  -webkit-appearance:none;
+  width:100%;height:8px;border-radius:999px;
+  background:#220000;
+  outline:none;
 }
-
-/* BOTÃO */
-.btn{
-  width:100%;
-  padding:14px;
-  border:none;
-  border-radius:22px;
-  background:linear-gradient(90deg,#4f7cff,#2d4bff);
-  color:#fff;
-  font-size:16px;
-  font-weight:800;
+input[type=range]::-webkit-slider-thumb{
+  -webkit-appearance:none;
+  width:20px;height:20px;border-radius:50%;
+  background:#ff0000;
+  box-shadow:0 0 12px rgba(255,0,0,.9);
   cursor:pointer;
 }
 
-/* LOADING */
-.loading{
-  text-align:center;
-  margin-top:14px;
-  display:none;
-}
-
-.bar{
-  width:100%;
-  height:6px;
-  background:#0b0e1a;
-  border-radius:6px;
-  overflow:hidden;
-  margin-top:8px;
-}
-
-.fill{
-  height:100%;
-  width:0%;
-  background:#4f7cff;
-  animation:load 2.5s forwards;
-}
-
-@keyframes load{
-  to{width:100%}
-}
-
-/* TOAST */
-.toast{
-  position:fixed;
-  bottom:30px;
-  background:#4f7cff;
-  color:#0b0e1a;
-  padding:12px 22px;
-  border-radius:18px;
-  font-weight:800;
-  display:none;
+/* STATUS VISUAL */
+.status{
+  margin-top:10px;
+  font-size:12px;
+  opacity:.85;
 }
 </style>
 </head>
 
 <body>
-
-<div class="panel">
-  <div class="title">@BANNED</div>
-
-  <div class="tabs">
-    <div class="tab active" onclick="openTab('aux')">AUXÍLIO</div>
-    <div class="tab" onclick="openTab('opt')">OTIMIZAÇÃO</div>
-    <div class="tab" onclick="openTab('misc')">MISC</div>
+<div class="card">
+  <div class="header">
+    <h1>BASSED SENSI</h1>
+    <span id="online">Status: Online</span>
   </div>
 
-  <!-- AUXILIO -->
-  <div id="aux" class="content active">
-    <div class="item">
-      <span>Auxílio de Mira (Leve)</span>
-      <div class="switch"></div>
+  <div class="list">
+    <div class="row">
+      <div class="label">Ativar Auxílio</div>
+      <label class="switch">
+        <input type="checkbox" id="aux">
+        <span class="slider"></span>
+      </label>
     </div>
 
-    <div class="item">
-      <span>Precisão Extra</span>
-      <div class="switch"></div>
+    <div class="row">
+      <div class="label">Ativar HS 70%</div>
+      <label class="switch">
+        <input type="checkbox" id="hs">
+        <span class="slider"></span>
+      </label>
     </div>
 
-    <div class="item">
-      <span>Estabilidade de Sensi</span>
-      <div class="switch"></div>
+    <div class="row">
+      <div class="label">Ativar AIM Bot Legit</div>
+      <label class="switch">
+        <input type="checkbox" id="aim">
+        <span class="slider"></span>
+      </label>
     </div>
 
-    <div class="slider-box">
-      <label>Precisão: <b id="prec">80%</b></label>
-      <input type="range" min="0" max="100" value="80"
-      oninput="prec.innerText=this.value+'%'">
-    </div>
-
-    <button class="btn" onclick="ativar()">ATIVAR</button>
-
-    <div class="loading" id="load">
-      Aplicando ajustes…
-      <div class="bar"><div class="fill"></div></div>
-    </div>
-  </div>
-
-  <!-- OTIMIZAÇÃO -->
-  <div id="opt" class="content">
-    <div class="item">
-      <span>Otimização de FPS</span>
-      <div class="switch"></div>
-    </div>
-
-    <div class="item">
-      <span>Redução de Lag</span>
-      <div class="switch"></div>
-    </div>
-
-    <div class="item">
-      <span>Estabilidade Geral</span>
-      <div class="switch"></div>
+    <div class="row">
+      <div class="label">Ativar Mira Grudante</div>
+      <label class="switch">
+        <input type="checkbox" id="mira">
+        <span class="slider"></span>
+      </label>
     </div>
   </div>
 
-  <!-- MISC -->
-  <div id="misc" class="content">
-    <div class="item">
-      <span>Interface Suave</span>
-      <div class="switch"></div>
+  <div class="fov">
+    <div class="top">
+      <div class="label">FOV</div>
+      <span id="fovVal">78%</span>
     </div>
-
-    <div class="item">
-      <span>Resposta Rápida</span>
-      <div class="switch"></div>
-    </div>
-
-    <div class="item">
-      <span>Modo Estável</span>
-      <div class="switch"></div>
-    </div>
+    <input type="range" min="0" max="100" value="78" id="fov">
   </div>
+
+  <div class="status" id="status">Nenhuma opção ativa</div>
 </div>
 
-<div class="toast" id="toast">Funções ativadas com sucesso 😈</div>
-
 <script>
-document.querySelectorAll(".switch").forEach(sw=>{
-  sw.onclick=()=>sw.classList.toggle("on")
-})
+const opts = ["aux","hs","aim","mira"];
+const status = document.getElementById("status");
+const fov = document.getElementById("fov");
+const fovVal = document.getElementById("fovVal");
 
-function openTab(id){
-  document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"))
-  document.querySelectorAll(".content").forEach(c=>c.classList.remove("active"))
-  event.target.classList.add("active")
-  document.getElementById(id).classList.add("active")
-}
+/* carregar estado salvo */
+opts.forEach(id=>{
+  const el=document.getElementById(id);
+  el.checked = localStorage.getItem(id)==="1";
+  el.addEventListener("change",updateStatus);
+});
+fov.value = localStorage.getItem("fov") || 78;
+fovVal.innerText = fov.value + "%";
 
-function ativar(){
-  load.style.display="block"
-  setTimeout(()=>{
-    load.style.display="none"
-    toast.style.display="block"
-    setTimeout(()=>toast.style.display="none",2200)
-  },2600)
+/* salvar fov */
+fov.addEventListener("input",()=>{
+  fovVal.innerText = fov.value + "%";
+  localStorage.setItem("fov",fov.value);
+});
+
+/* status visual */
+function updateStatus(){
+  let ativos=[];
+  opts.forEach(id=>{
+    const el=document.getElementById(id);
+    localStorage.setItem(id, el.checked ? "1":"0");
+    if(el.checked) ativos.push(id);
+  });
+
+  if(ativos.length===0){
+    status.innerText="Nenhuma opção ativa";
+  }else{
+    status.innerText = ativos.length+" opção(ões) ativa(s)";
+  }
 }
+updateStatus();
 </script>
-
 </body>
 </html>
