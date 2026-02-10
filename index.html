@@ -1,73 +1,290 @@
-<!DOCTYPE html><html lang="pt-BR">
+<!DOCTYPE html>
+<html lang="pt-br">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bassed Sensi</title>
+<title>@BANNED</title>
+
 <style>
-body{margin:0;font-family:-apple-system,BlinkMacSystemFont,Arial;background:#0b0b0b;color:#fff}
-.container{max-width:420px;margin:auto;padding:16px}
-.header{font-size:22px;font-weight:700;text-align:center;margin-bottom:12px}
-.card{background:#151515;border-radius:16px;padding:14px;margin-bottom:12px}
-.card h3{margin:0 0 8px 0;font-size:16px}
-.toggle{display:flex;justify-content:space-between;align-items:center;margin:8px 0}
-.switch{position:relative;width:46px;height:26px}
-.switch input{display:none}
-.slider{position:absolute;cursor:pointer;top:0;left:0;right:0;bottom:0;background:#444;border-radius:26px;transition:.3s}
-.slider:before{position:absolute;content:"";height:20px;width:20px;left:3px;bottom:3px;background:white;border-radius:50%;transition:.3s}
-input:checked+.slider{background:#0a84ff}
-input:checked+.slider:before{transform:translateX(20px)}
-.button{width:100%;padding:14px;border:none;border-radius:14px;background:#0a84ff;color:#fff;font-size:16px;font-weight:600}
-.button:active{transform:scale(.97)}
-.progress{width:100%;height:8px;background:#2a2a2a;border-radius:8px;overflow:hidden;margin-top:10px}
-.bar{height:100%;width:0;background:#0a84ff;transition:width .4s}
+*{
+  font-family:-apple-system,BlinkMacSystemFont;
+  box-sizing:border-box;
+}
+
+body{
+  margin:0;
+  min-height:100vh;
+  background:radial-gradient(circle at top,#330000,#0a0000);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  color:#fff;
+}
+
+/* PAINEL */
+.panel{
+  width:340px;
+  background:linear-gradient(180deg,#2a1515,#200d0d);
+  border-radius:26px;
+  padding:18px;
+  box-shadow:0 0 50px rgba(255,60,60,.5);
+}
+
+.title{
+  text-align:center;
+  font-size:22px;
+  font-weight:800;
+  margin-bottom:14px;
+}
+
+/* TABS */
+.tabs{
+  display:flex;
+  background:#1a0b0b;
+  border-radius:20px;
+  padding:4px;
+  margin-bottom:16px;
+}
+
+.tab{
+  flex:1;
+  text-align:center;
+  padding:8px 0;
+  border-radius:16px;
+  font-size:13px;
+  opacity:.6;
+  cursor:pointer;
+}
+
+.tab.active{
+  background:linear-gradient(90deg,#ff4f4f,#b30000);
+  opacity:1;
+  font-weight:700;
+}
+
+/* CONTEÚDO */
+.content{display:none}
+.content.active{display:block}
+
+/* ITENS */
+.item{
+  background:#301212;
+  border-radius:18px;
+  padding:12px;
+  margin-bottom:10px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.item span{
+  font-size:14px;
+}
+
+/* SWITCH */
+.switch{
+  width:46px;
+  height:24px;
+  background:#1a0b0b;
+  border-radius:20px;
+  position:relative;
+  cursor:pointer;
+}
+
+.switch::after{
+  content:"";
+  width:20px;
+  height:20px;
+  background:#ff4f4f;
+  border-radius:50%;
+  position:absolute;
+  top:2px;
+  left:2px;
+  transition:.3s;
+}
+
+.switch.on{
+  background:#ff4f4f;
+}
+
+.switch.on::after{
+  left:24px;
+  background:#1a0b0b;
+}
+
+/* SLIDER */
+.slider-box{
+  background:#301212;
+  border-radius:18px;
+  padding:12px;
+  margin-bottom:14px;
+}
+
+.slider-box label{
+  font-size:13px;
+  opacity:.8;
+}
+
+input[type=range]{
+  width:100%;
+}
+
+/* BOTÃO */
+.btn{
+  width:100%;
+  padding:14px;
+  border:none;
+  border-radius:22px;
+  background:linear-gradient(90deg,#ff4f4f,#b30000);
+  color:#fff;
+  font-size:16px;
+  font-weight:800;
+  cursor:pointer;
+}
+
+/* LOADING */
+.loading{
+  text-align:center;
+  margin-top:14px;
+  display:none;
+}
+
+.bar{
+  width:100%;
+  height:6px;
+  background:#1a0b0b;
+  border-radius:6px;
+  overflow:hidden;
+  margin-top:8px;
+}
+
+.fill{
+  height:100%;
+  width:0%;
+  background:#ff4f4f;
+  animation:load 2.5s forwards;
+}
+
+@keyframes load{
+  to{width:100%}
+}
+
+/* TOAST */
+.toast{
+  position:fixed;
+  bottom:30px;
+  background:#ff4f4f;
+  color:#1a0b0b;
+  padding:12px 22px;
+  border-radius:18px;
+  font-weight:800;
+  display:none;
+}
 </style>
 </head>
-<body>
-<div class="container">
-  <div class="header">BASSED SENSI</div>  <div class="card">
-    <h3>Auxílio de Mira</h3>
-    <div class="toggle">Aimbot Legit
-      <label class="switch"><input type="checkbox"><span class="slider"></span></label>
-    </div>
-    <div class="toggle">Auxílio 90%
-      <label class="switch"><input type="checkbox"><span class="slider"></span></label>
-    </div>
-    <div class="toggle">Sensi Otimizada
-      <label class="switch"><input type="checkbox"><span class="slider"></span></label>
-    </div>
-    <div class="toggle">Sensi 2X
-      <label class="switch"><input type="checkbox"><span class="slider"></span></label>
-    </div>
-  </div>  <div class="card">
-    <h3>Zona de Mira</h3>
-    <div class="toggle">Cabeça
-      <label class="switch"><input type="checkbox"><span class="slider"></span></label>
-    </div>
-    <div class="toggle">Pescoço
-      <label class="switch"><input type="checkbox"><span class="slider"></span></label>
-    </div>
-    <div class="toggle">Torso
-      <label class="switch"><input type="checkbox"><span class="slider"></span></label>
-    </div>
-  </div>  <div class="card">
-    <h3>Otimização</h3>
-    <div class="toggle">FPS Estável
-      <label class="switch"><input type="checkbox"><span class="slider"></span></label>
-    </div>
-    <div class="toggle">Reduzir Delay
-      <label class="switch"><input type="checkbox"><span class="slider"></span></label>
-    </div>
-  </div><button class="button" onclick="inject()">INJETAR</button>
 
-  <div class="progress"><div class="bar" id="bar"></div></div>
-</div><script>
-function inject(){
-  let bar=document.getElementById('bar');
-  bar.style.width='0%';
-  setTimeout(()=>bar.style.width='30%',200);
-  setTimeout(()=>bar.style.width='70%',600);
-  setTimeout(()=>bar.style.width='100%',1000);
-  try{navigator.vibrate(50);}catch(e){}
+<body>
+
+<div class="panel">
+  <div class="title">@BANNED</div>
+
+  <div class="tabs">
+    <div class="tab active" onclick="openTab('aux')">AUXÍLIO</div>
+    <div class="tab" onclick="openTab('opt')">OTIMIZAÇÃO</div>
+    <div class="tab" onclick="openTab('misc')">MISC</div>
+  </div>
+
+  <!-- AUXILIO -->
+  <div id="aux" class="content active">
+    <div class="item">
+      <span>Auxílio de Mira (Leve)</span>
+      <div class="switch"></div>
+    </div>
+
+    <div class="item">
+      <span>Precisão Extra</span>
+      <div class="switch"></div>
+    </div>
+
+    <div class="item">
+      <span>Estabilidade de Sensi</span>
+      <div class="switch"></div>
+    </div>
+
+    <div class="slider-box">
+      <label>Precisão: <b id="prec">80%</b></label>
+      <input type="range" min="0" max="100" value="80"
+      oninput="prec.innerText=this.value+'%'">
+    </div>
+
+    <button class="btn" onclick="ativar()">ATIVAR</button>
+
+    <div class="loading" id="load">
+      Aplicando ajustes…
+      <div class="bar"><div class="fill"></div></div>
+    </div>
+  </div>
+
+  <!-- OTIMIZAÇÃO -->
+  <div id="opt" class="content">
+    <div class="item">
+      <span>Otimização de FPS</span>
+      <div class="switch"></div>
+    </div>
+
+    <div class="item">
+      <span>Redução de Lag</span>
+      <div class="switch"></div>
+    </div>
+
+    <div class="item">
+      <span>Estabilidade Geral</span>
+      <div class="switch"></div>
+    </div>
+  </div>
+
+  <!-- MISC -->
+  <div id="misc" class="content">
+    <div class="item">
+      <span>Interface Suave</span>
+      <div class="switch"></div>
+    </div>
+
+    <div class="item">
+      <span>Resposta Rápida</span>
+      <div class="switch"></div>
+    </div>
+
+    <div class="item">
+      <span>Modo Estável</span>
+      <div class="switch"></div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast">Funções ativadas com sucesso 😈</div>
+
+<script>
+document.querySelectorAll(".switch").forEach(sw=>{
+  sw.onclick=()=>sw.classList.toggle("on")
+})
+
+function openTab(id){
+  document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"))
+  document.querySelectorAll(".content").forEach(c=>c.classList.remove("active"))
+  event.target.classList.add("active")
+  document.getElementById(id).classList.add("active")
 }
-</script></body>
+
+function ativar(){
+  load.style.display="block"
+  setTimeout(()=>{
+    load.style.display="none"
+    toast.style.display="block"
+    setTimeout(()=>toast.style.display="none",2200)
+  },2600)
+}
+</script>
+
+</body>
 </html>
