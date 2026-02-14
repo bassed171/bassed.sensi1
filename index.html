@@ -3,174 +3,93 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>@bassed external</title>
+<title>Sheik Sensi</title>
 
 <style>
 *{
   margin:0;
   padding:0;
   box-sizing:border-box;
-  font-family:-apple-system,BlinkMacSystemFont,sans-serif;
+  font-family:Arial, sans-serif;
 }
 
 body{
-  min-height:100vh;
+  background:#111;
   display:flex;
   justify-content:center;
   align-items:center;
-  background:radial-gradient(circle at top,#1a0026,#000);
+  height:100vh;
 }
 
-/* CONTAINER */
 .wrapper{
-  width:340px;
-  animation:fadeIn .6s ease;
+  width:330px;
 }
 
-@keyframes fadeIn{
-  from{opacity:0; transform:scale(.95)}
-  to{opacity:1; transform:scale(1)}
-}
-
-/* STATUS */
 .status{
   background:#000;
   color:#fff;
   text-align:center;
-  padding:16px;
-  font-weight:800;
-  font-size:20px;
-  border-radius:22px;
-  margin-bottom:14px;
-  box-shadow:0 0 15px rgba(0,0,0,.6);
+  padding:14px;
+  font-weight:bold;
+  border-radius:18px;
+  margin-bottom:12px;
 }
 
-/* PAINEL */
 .panel{
-  background:#7a7a7a;
-  border-radius:22px;
+  background:#8a8a8a;
+  border-radius:18px;
   overflow:hidden;
-  box-shadow:0 0 25px rgba(106,0,168,.6);
 }
 
-/* HEADER */
 .header{
   background:#6a00a8;
   color:#fff;
   text-align:center;
   padding:18px;
-  font-size:22px;
-  font-weight:800;
+  font-size:20px;
+  font-weight:bold;
 }
 
-/* BLOCO */
 .block{
+  padding:18px;
   text-align:center;
-  padding:20px;
-  font-size:20px;
+  font-size:18px;
   color:#fff;
-  border-top:2px solid rgba(255,255,255,.5);
-  cursor:pointer;
-  transition:.25s;
+  border-top:1px solid rgba(255,255,255,0.6);
 }
 
-.block:hover{
-  background:#5f5f5f;
-}
-
-.block:active{
-  transform:scale(.97);
-}
-
-/* SLIDER */
-.slider-area{
-  padding:20px;
+.slider-box{
+  padding:18px;
   text-align:center;
-  border-top:2px solid rgba(255,255,255,.5);
+  border-top:1px solid rgba(255,255,255,0.6);
 }
 
-.slider-area span{
+.slider-box span{
   display:block;
-  margin-bottom:14px;
-  font-size:20px;
+  margin-bottom:10px;
+  font-size:18px;
   color:#fff;
 }
 
 input[type=range]{
-  width:100%;
+  width:90%;
   accent-color:#6a00a8;
-  transition:.2s;
 }
 
-/* STRIP */
-.strip{
-  height:24px;
+.footer-strip{
+  height:20px;
   background:#6a00a8;
 }
 
-/* BOTÃO GRANDE */
 .main-btn{
+  margin-top:12px;
   background:#000;
   color:#fff;
   text-align:center;
-  padding:20px;
-  margin-top:14px;
-  font-size:22px;
-  font-weight:800;
-  border-radius:22px;
-  cursor:pointer;
-  transition:.25s;
-  box-shadow:0 0 20px rgba(0,0,0,.6);
-}
-
-.main-btn:hover{
-  background:#111;
-}
-
-.main-btn:active{
-  transform:scale(.97);
-}
-
-/* MODAL */
-.modal{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.7);
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  opacity:0;
-  pointer-events:none;
-  transition:.3s;
-}
-
-.modal.active{
-  opacity:1;
-  pointer-events:auto;
-}
-
-.modal-box{
-  background:#1a1a1a;
-  padding:30px;
-  border-radius:20px;
-  text-align:center;
-  color:#fff;
-  animation:pop .3s ease;
-}
-
-@keyframes pop{
-  from{transform:scale(.8)}
-  to{transform:scale(1)}
-}
-
-.close{
-  margin-top:15px;
-  padding:10px 18px;
-  background:#6a00a8;
-  border:none;
-  color:#fff;
-  border-radius:14px;
-  cursor:pointer;
+  padding:18px;
+  font-size:20px;
+  font-weight:bold;
+  border-radius:18px;
 }
 </style>
 </head>
@@ -185,49 +104,29 @@ input[type=range]{
 
   <div class="panel">
     <div class="header">
-      @bassed external
+      @sheiksensi external
     </div>
 
-    <div class="block">Assistência Inteligente</div>
+    <div class="block">Assistência Visual</div>
 
-    <div class="slider-area">
-      <span>Nível de Ajuste: <b id="valor">0.00</b></span>
-      <input type="range" min="0" max="100" step="0.01"
-      oninput="valor.innerText=this.value">
+    <div class="slider-box">
+      <span>Nível de Ajuste: <b id="val">0</b></span>
+      <input type="range" min="0" max="100"
+      oninput="val.innerText=this.value">
     </div>
 
     <div class="block">Modo Estável</div>
-    <div class="block">Calibração Fina</div>
+    <div class="block">Correção de Sensibilidade</div>
+    <div class="block">Creators</div>
 
-    <div class="block" onclick="abrirModal()">Creators</div>
-
-    <div class="strip"></div>
+    <div class="footer-strip"></div>
   </div>
 
   <div class="main-btn">
-    INICIAR SISTEMA
+    INICIAR APLICATIVO
   </div>
 
 </div>
-
-<!-- MODAL -->
-<div class="modal" id="modal">
-  <div class="modal-box">
-    <h2>Creators</h2>
-    <p style="margin-top:10px;font-size:18px;">by <b>bassed171</b></p>
-    <button class="close" onclick="fecharModal()">Fechar</button>
-  </div>
-</div>
-
-<script>
-function abrirModal(){
-  document.getElementById("modal").classList.add("active");
-}
-
-function fecharModal(){
-  document.getElementById("modal").classList.remove("active");
-}
-</script>
 
 </body>
 </html>
