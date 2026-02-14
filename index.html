@@ -35,49 +35,70 @@ body{
   margin-bottom:12px;
 }
 
+/* PAINEL */
 .panel{
   background:#8a8a8a;
   border-radius:18px;
   overflow:hidden;
 }
 
+/* HEADER */
 .header{
   background:#6a00a8;
   color:#fff;
   text-align:center;
-  padding:18px;
-  font-size:20px;
+  padding:16px;
+  font-size:18px;
   font-weight:bold;
 }
 
-.block{
-  padding:18px;
+/* ABAS */
+.tabs{
+  display:flex;
+  background:#5a0090;
+}
+
+.tab{
+  flex:1;
   text-align:center;
-  font-size:18px;
+  padding:12px;
   color:#fff;
-  border-top:1px solid rgba(255,255,255,0.6);
+  cursor:pointer;
+  font-weight:bold;
+  opacity:.6;
 }
 
-.slider-box{
-  padding:18px;
-  text-align:center;
-  border-top:1px solid rgba(255,255,255,0.6);
+.tab.active{
+  background:#6a00a8;
+  opacity:1;
 }
 
-.slider-box span{
+/* CONTEÚDO */
+.content{
+  padding:16px;
+  display:none;
+}
+
+.content.active{
   display:block;
-  margin-bottom:10px;
-  font-size:18px;
+}
+
+.block{
+  padding:14px;
+  text-align:center;
+  font-size:16px;
   color:#fff;
+  border-top:1px solid rgba(255,255,255,0.6);
 }
 
 input[type=range]{
-  width:90%;
+  width:100%;
   accent-color:#6a00a8;
+  margin-top:8px;
 }
 
 .footer-strip{
-  height:20px;
+  height:18px;
   background:#6a00a8;
 }
 
@@ -87,7 +108,7 @@ input[type=range]{
   color:#fff;
   text-align:center;
   padding:18px;
-  font-size:20px;
+  font-size:18px;
   font-weight:bold;
   border-radius:18px;
 }
@@ -103,30 +124,56 @@ input[type=range]{
   </div>
 
   <div class="panel">
+
     <div class="header">
-      @sheiksensi external
+      @sheiksensi
     </div>
 
-    <div class="block">Assistência Visual</div>
-
-    <div class="slider-box">
-      <span>Nível de Ajuste: <b id="val">0</b></span>
-      <input type="range" min="0" max="100"
-      oninput="val.innerText=this.value">
+    <div class="tabs">
+      <div class="tab active" onclick="openTab(0)">SENSI</div>
+      <div class="tab" onclick="openTab(1)">OTIMIZAÇÃO</div>
     </div>
 
-    <div class="block">Modo Estável</div>
-    <div class="block">Correção de Sensibilidade</div>
-    <div class="block">Creators</div>
+    <!-- ABA SENSI -->
+    <div class="content active">
+      <div class="block">
+        Sensibilidade Geral
+        <input type="range" min="0" max="200">
+      </div>
+      <div class="block">
+        Ajuste Fino
+        <input type="range" min="0" max="100">
+      </div>
+    </div>
+
+    <!-- ABA OTIMIZAÇÃO -->
+    <div class="content">
+      <div class="block">Boost de FPS</div>
+      <div class="block">Redução de Lag</div>
+      <div class="block">Modo Estável</div>
+    </div>
 
     <div class="footer-strip"></div>
   </div>
 
   <div class="main-btn">
-    INICIAR APLICATIVO
+    APLICAR
   </div>
 
 </div>
+
+<script>
+function openTab(index){
+  let tabs = document.querySelectorAll(".tab");
+  let contents = document.querySelectorAll(".content");
+
+  tabs.forEach(tab => tab.classList.remove("active"));
+  contents.forEach(content => content.classList.remove("active"));
+
+  tabs[index].classList.add("active");
+  contents[index].classList.add("active");
+}
+</script>
 
 </body>
 </html>
