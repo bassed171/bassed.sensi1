@@ -6,107 +6,40 @@
 <title>Sheik Sensi</title>
 
 <style>
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:Arial, sans-serif;
-}
-
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial;}
 body{
   background:#000;
   display:flex;
   justify-content:center;
   align-items:center;
   height:100vh;
-  overflow:hidden;
+  color:#fff;
 }
-
-/* FUNDO NEON */
-body::before{
-  content:"";
-  position:absolute;
-  width:200%;
-  height:200%;
-  background:radial-gradient(circle at 20% 20%, rgba(180,0,255,.2), transparent 40%),
-             radial-gradient(circle at 80% 80%, rgba(180,0,255,.2), transparent 40%);
-  animation:moveBg 8s linear infinite alternate;
-}
-
-@keyframes moveBg{
-  from{transform:translate(-10%,-10%)}
-  to{transform:translate(10%,10%)}
-}
-
-/* CARD */
 .card{
-  position:relative;
-  width:350px;
+  width:360px;
   background:#111;
   border-radius:20px;
   padding:25px;
-  box-shadow:0 0 25px rgba(180,0,255,.6);
-  color:#fff;
-  z-index:1;
+  box-shadow:0 0 25px rgba(160,0,255,.7);
 }
-
-/* TITULO */
-.title{
-  text-align:center;
-  font-size:20px;
-  font-weight:bold;
-  margin-bottom:15px;
-}
-
-.divider{
-  height:2px;
-  background:#a000ff;
-  margin-bottom:20px;
-}
-
-/* BOTÕES ABA */
-.tabs{
-  display:flex;
-  gap:10px;
-  margin-bottom:20px;
-}
-
+.title{text-align:center;font-weight:bold;margin-bottom:10px;}
+.divider{height:2px;background:#a000ff;margin:15px 0;}
+.tabs{display:flex;gap:10px;margin-bottom:20px;}
 .tab{
   flex:1;
   padding:10px;
-  border-radius:12px;
   text-align:center;
   background:#222;
+  border-radius:10px;
   cursor:pointer;
 }
-
-.tab.active{
-  background:linear-gradient(90deg,#a000ff,#d000ff);
-}
-
-/* CHECKBOX */
-.option{
-  display:flex;
-  align-items:center;
-  margin-bottom:12px;
-}
-
-.option input{
-  margin-right:10px;
-  accent-color:#a000ff;
-}
-
-/* SLIDER */
-.range{
-  margin:20px 0;
-}
-
-.range input{
-  width:100%;
-  accent-color:#a000ff;
-}
-
-/* DROPDOWN */
+.tab.active{background:linear-gradient(90deg,#a000ff,#d000ff);}
+.content{display:none;}
+.content.active{display:block;}
+.option{margin-bottom:12px;}
+.range{margin:15px 0;}
+.range span{float:right;}
+input[type=range]{width:100%;accent-color:#a000ff;}
 select{
   width:100%;
   padding:10px;
@@ -114,43 +47,18 @@ select{
   background:#222;
   color:#fff;
   border:1px solid #a000ff;
-  margin-bottom:20px;
+  margin-bottom:15px;
 }
-
-/* RADIO */
-.radio-group{
-  display:flex;
-  justify-content:space-between;
-  margin-bottom:25px;
-}
-
-.radio-group label{
-  display:flex;
-  align-items:center;
-}
-
-.radio-group input{
-  margin-right:8px;
-  accent-color:#a000ff;
-}
-
-/* BOTÃO */
+.radio-group{display:flex;justify-content:space-between;margin-bottom:20px;}
 .main-btn{
   width:100%;
-  padding:15px;
-  border-radius:15px;
+  padding:14px;
   border:none;
+  border-radius:15px;
   font-weight:bold;
-  font-size:16px;
-  color:#fff;
   background:linear-gradient(90deg,#a000ff,#d000ff);
-  box-shadow:0 0 20px rgba(180,0,255,.8);
+  color:#fff;
   cursor:pointer;
-  transition:.3s;
-}
-
-.main-btn:hover{
-  transform:scale(1.05);
 }
 </style>
 </head>
@@ -159,27 +67,26 @@ select{
 
 <div class="card">
 
-  <div class="title">SHEIK SENSI</div>
-  <div class="divider"></div>
+<div class="title">SHEIK SENSI</div>
+<div class="divider"></div>
 
-  <div class="tabs">
-    <div class="tab active">Configuração</div>
-    <div class="tab">Info</div>
-  </div>
+<div class="tabs">
+  <div class="tab active" onclick="switchTab(0)">Configuração</div>
+  <div class="tab" onclick="switchTab(1)">Info</div>
+</div>
 
+<div class="content active">
   <div class="option">
-    <input type="checkbox">
-    <span>Ativar Assistência</span>
+    <input type="checkbox"> Ativar Assistência
   </div>
-
   <div class="option">
-    <input type="checkbox">
-    <span>Ativar Campo Visual</span>
+    <input type="checkbox"> Ativar Campo Visual
   </div>
 
   <div class="range">
-    Intensidade
-    <input type="range" min="0" max="100">
+    Intensidade <span id="valor">50</span>
+    <input type="range" min="0" max="100" value="50"
+    oninput="valor.innerText=this.value">
   </div>
 
   <select>
@@ -190,13 +97,41 @@ select{
   </select>
 
   <div class="radio-group">
-    <label><input type="radio" name="tipo" checked>Ao Tocar</label>
-    <label><input type="radio" name="tipo">Ao Segurar</label>
+    <label><input type="radio" name="modo" checked> Ao Tocar</label>
+    <label><input type="radio" name="modo"> Ao Segurar</label>
   </div>
+</div>
 
-  <button class="main-btn">APLICAR CONFIGURAÇÃO</button>
+<div class="content">
+  <p style="opacity:.8;font-size:14px;">
+    Versão 1.0<br>
+    Desenvolvido por Sheik Dev<br>
+    Interface Mobile Premium
+  </p>
+</div>
+
+<button class="main-btn" onclick="aplicar()">APLICAR CONFIGURAÇÃO</button>
 
 </div>
+
+<script>
+function switchTab(index){
+  let tabs=document.querySelectorAll(".tab");
+  let contents=document.querySelectorAll(".content");
+  tabs.forEach(t=>t.classList.remove("active"));
+  contents.forEach(c=>c.classList.remove("active"));
+  tabs[index].classList.add("active");
+  contents[index].classList.add("active");
+}
+
+function aplicar(){
+  let btn=document.querySelector(".main-btn");
+  btn.innerText="CONFIGURAÇÃO APLICADA ✔";
+  setTimeout(()=>{
+    btn.innerText="APLICAR CONFIGURAÇÃO";
+  },2000);
+}
+</script>
 
 </body>
 </html>
