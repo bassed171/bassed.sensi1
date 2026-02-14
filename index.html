@@ -18,30 +18,42 @@ body{
   display:flex;
   justify-content:center;
   align-items:center;
-  background:linear-gradient(180deg,#1a1a1a,#000);
+  background:radial-gradient(circle at top,#1a0026,#000);
 }
 
+/* CONTAINER */
 .wrapper{
-  width:330px;
+  width:340px;
+  animation:fadeIn .6s ease;
 }
 
+@keyframes fadeIn{
+  from{opacity:0; transform:scale(.95)}
+  to{opacity:1; transform:scale(1)}
+}
+
+/* STATUS */
 .status{
   background:#000;
   color:#fff;
   text-align:center;
-  padding:14px;
+  padding:16px;
   font-weight:800;
   font-size:20px;
-  border-radius:18px;
+  border-radius:22px;
   margin-bottom:14px;
+  box-shadow:0 0 15px rgba(0,0,0,.6);
 }
 
+/* PAINEL */
 .panel{
   background:#7a7a7a;
-  border-radius:20px;
+  border-radius:22px;
   overflow:hidden;
+  box-shadow:0 0 25px rgba(106,0,168,.6);
 }
 
+/* HEADER */
 .header{
   background:#6a00a8;
   color:#fff;
@@ -51,100 +63,114 @@ body{
   font-weight:800;
 }
 
-.item{
-  padding:18px;
+/* BLOCO */
+.block{
   text-align:center;
+  padding:20px;
   font-size:20px;
   color:#fff;
-  border-top:2px solid rgba(255,255,255,.4);
+  border-top:2px solid rgba(255,255,255,.5);
   cursor:pointer;
-  transition:.2s;
+  transition:.25s;
 }
 
-.item.active{
-  background:#5a5a5a;
+.block:hover{
+  background:#5f5f5f;
 }
 
+.block:active{
+  transform:scale(.97);
+}
+
+/* SLIDER */
 .slider-area{
-  padding:18px;
-  border-top:2px solid rgba(255,255,255,.4);
+  padding:20px;
   text-align:center;
-  color:#fff;
+  border-top:2px solid rgba(255,255,255,.5);
 }
 
 .slider-area span{
-  font-size:20px;
   display:block;
   margin-bottom:14px;
-}
-
-.slider-box{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:10px;
-}
-
-.side-box{
-  width:28px;
-  height:60px;
-  background:#6a00a8;
+  font-size:20px;
+  color:#fff;
 }
 
 input[type=range]{
-  flex:1;
-  appearance:none;
-  height:6px;
-  border-radius:6px;
-  background:#d0d0d0;
-  outline:none;
+  width:100%;
+  accent-color:#6a00a8;
+  transition:.2s;
 }
 
-input[type=range]::-webkit-slider-thumb{
-  appearance:none;
-  width:22px;
-  height:22px;
-  border-radius:50%;
-  background:#fff;
-  cursor:pointer;
-}
-
-.footer-strip{
+/* STRIP */
+.strip{
   height:24px;
   background:#6a00a8;
 }
 
-/* Texto do criador */
-.creator-text{
-  display:none;
-  text-align:center;
-  padding:14px;
-  font-size:18px;
-  font-weight:700;
-  color:#6a00a8;
-  background:#111;
-  border-top:2px solid rgba(255,255,255,.3);
-}
-
-.creator-text.show{
-  display:block;
-}
-
-.open-btn{
+/* BOTÃO GRANDE */
+.main-btn{
   background:#000;
   color:#fff;
-  margin-top:14px;
-  padding:18px;
   text-align:center;
-  font-size:24px;
+  padding:20px;
+  margin-top:14px;
+  font-size:22px;
   font-weight:800;
-  border-radius:18px;
+  border-radius:22px;
   cursor:pointer;
-  transition:.2s;
+  transition:.25s;
+  box-shadow:0 0 20px rgba(0,0,0,.6);
 }
 
-.open-btn:active{
+.main-btn:hover{
+  background:#111;
+}
+
+.main-btn:active{
   transform:scale(.97);
+}
+
+/* MODAL */
+.modal{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.7);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  opacity:0;
+  pointer-events:none;
+  transition:.3s;
+}
+
+.modal.active{
+  opacity:1;
+  pointer-events:auto;
+}
+
+.modal-box{
+  background:#1a1a1a;
+  padding:30px;
+  border-radius:20px;
+  text-align:center;
+  color:#fff;
+  animation:pop .3s ease;
+}
+
+@keyframes pop{
+  from{transform:scale(.8)}
+  to{transform:scale(1)}
+}
+
+.close{
+  margin-top:15px;
+  padding:10px 18px;
+  background:#6a00a8;
+  border:none;
+  color:#fff;
+  border-radius:14px;
+  cursor:pointer;
 }
 </style>
 </head>
@@ -158,72 +184,50 @@ input[type=range]::-webkit-slider-thumb{
   </div>
 
   <div class="panel">
-
     <div class="header">
       @bassed external
     </div>
 
-    <div class="item">Assist Mode</div>
+    <div class="block">Assistência Inteligente</div>
 
     <div class="slider-area">
-      <span id="fovText">Field Control 0.00</span>
-      <div class="slider-box">
-        <div class="side-box"></div>
-        <input id="slider" type="range" min="0" max="100" value="0">
-        <div class="side-box"></div>
-      </div>
+      <span>Nível de Ajuste: <b id="valor">0.00</b></span>
+      <input type="range" min="0" max="100" step="0.01"
+      oninput="valor.innerText=this.value">
     </div>
 
-    <div class="item">Precision Lock</div>
-    <div class="item">Stability Boost</div>
-    <div class="item" id="creatorBtn">Creators</div>
+    <div class="block">Modo Estável</div>
+    <div class="block">Calibração Fina</div>
 
-    <div class="creator-text" id="creatorText">
-      by bassed171
-    </div>
+    <div class="block" onclick="abrirModal()">Creators</div>
 
-    <div class="footer-strip"></div>
-
+    <div class="strip"></div>
   </div>
 
-  <div class="open-btn" onclick="abrir()">
-    Abrir Aplicativo
+  <div class="main-btn">
+    INICIAR SISTEMA
   </div>
 
 </div>
 
+<!-- MODAL -->
+<div class="modal" id="modal">
+  <div class="modal-box">
+    <h2>Creators</h2>
+    <p style="margin-top:10px;font-size:18px;">by <b>bassed171</b></p>
+    <button class="close" onclick="fecharModal()">Fechar</button>
+  </div>
+</div>
+
 <script>
-
-/* Toggle visual dos itens */
-document.querySelectorAll(".item").forEach(item=>{
-  item.addEventListener("click",()=>{
-    item.classList.toggle("active");
-  });
-});
-
-/* Slider */
-const slider = document.getElementById("slider");
-const fovText = document.getElementById("fovText");
-
-slider.addEventListener("input",()=>{
-  let value = (slider.value/10).toFixed(2);
-  fovText.innerText = "Field Control " + value;
-});
-
-/* Creator toggle */
-const creatorBtn = document.getElementById("creatorBtn");
-const creatorText = document.getElementById("creatorText");
-
-creatorBtn.addEventListener("click",()=>{
-  creatorText.classList.toggle("show");
-});
-
-/* Botão */
-function abrir(){
-  alert("Aplicativo iniciado!");
+function abrirModal(){
+  document.getElementById("modal").classList.add("active");
 }
 
+function fecharModal(){
+  document.getElementById("modal").classList.remove("active");
+}
 </script>
 
 </body>
-      </html>
+</html>
